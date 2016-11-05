@@ -7,6 +7,9 @@ bot.on("ready", () => {
 });
 
 bot.on("message", msg => {
+  channel = msg.channel;
+  guild = msg.guild;
+
   if (msg.content.startsWith(prefix + "ping")) {
     channel.sendMessage("Do I have to say pong?");
   }
