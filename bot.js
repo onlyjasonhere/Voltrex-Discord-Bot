@@ -97,8 +97,13 @@ bot.on("message", function(msg){
     var input = msg.content.toLowerCase().replace(prefix, "");
     for(var x of Object.keys(general)){
       if(input.startsWith(x)){
+        try{
         general[x].process(bot,msg,env);
         break;
+      }catch(err){
+        console.log("Could not process command: "+msg+", Error: "+err.stack)
+        msg.reply("Sorry, it seems I had an error while processing that command")
+      }
       }
     }
 
