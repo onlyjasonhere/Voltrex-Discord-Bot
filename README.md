@@ -1,2 +1,3 @@
-# v10-discord.js-discordbot
-A Discord bot created in Discord.js v10!
+# Voltrex
+A modular Discord bot created in Discord.js v10!
+Coming Soon™
