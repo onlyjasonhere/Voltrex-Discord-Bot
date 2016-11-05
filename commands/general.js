@@ -5,7 +5,11 @@ command.ping = {
   "usage":"ping",
   "description":"Ping Pong command",
   "process":function(bot,msg,env){
-    msg.reply("Pong!")
+    var now = Date.now()
+    msg.channel.sendMessage("Pinging...").then(function(message){
+      var end = Date.now()
+      message.edit("Pong! `"+(end - now)+"`")
+    })
   }
 }
 
