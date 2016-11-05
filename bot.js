@@ -76,7 +76,6 @@ bot.on("message", function(msg) {
 
 bot.on("message", function(msg) {
 
-
     var env = {
         "bot": bot,
         "msg": msg,
