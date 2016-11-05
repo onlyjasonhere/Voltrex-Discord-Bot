@@ -18,6 +18,8 @@ command.help = {
   "usage":"help",
   "description":"Sends you list of commands and help",
   "process":function(bot,msg,env){
+    var e = msg.content.split(" ").splice(1).join(" ")
+    if(e === ""){
     var help = "```ruby\nBot Commands:\n"
     var commands = env.general
     for(var i = 0;i<Object.keys(commands).length;i++){
@@ -29,6 +31,14 @@ command.help = {
       message.edit("Commands in your DM's now")
     })
   })
+}else{
+
+  if(env.general[e]){
+    msg.channel.sendMessage(`\`\`\`\n${env.prefix}${env.general[e].usage}\n\n${env.general[e].description}\`\`\``)
+  }else{
+    msg.channel.sendMessage("Command `"+e+"` not found")
+  }
+}
   }
 }
 

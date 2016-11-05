@@ -2,11 +2,21 @@ var Discord = require("discord.js");
 var bot = new Discord.Client();
 var prefix = "?" //You can change this to a prefix you like but, PLEASE DON'T USE "!"
 var general = require("./commands/general.js")
+console.log(process.argv)
 if(process.env.BOT_TOKEN){
   var token = process.env.BOT_TOKEN
 }else{
   // Put your token below if you are not using an environment variable
-  var token = "TOKEN"
+if(process.argv[3]){
+  // This code is for if you incorporate token when running bot
+  var token = process.argv[3]
+
+}else{
+// If your too lazy to do any of these put your token below:
+
+var token = "TOKEN"
+
+}
 
 }
 
