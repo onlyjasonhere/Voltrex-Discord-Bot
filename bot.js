@@ -22,7 +22,8 @@ bot.on("message", function(msg){
     "bot":bot,
     "msg":msg,
     "general":general,
-    "process":process
+    "process":process,
+    "prefix":prefix
   }
 
   var input = msg.content.toLowerCase();
