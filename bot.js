@@ -15,32 +15,29 @@ bot.on("ready", () => {
     console.log("Bot is online and ready on " + bot.guilds.size + " servers!");
 });
 
-bot.on("message", msg => {
-  if(!msg.content.startsWith(prefix))
-  var cmd = ""
-  var splitmsg = msg.content.split("")
-  for(var i = 0;i<splitmsg.length;i++){
-    if(i != ""){
-      cmd += splitmsg[i]
-    }else{
-      return
-    }
-  cmd = cmd.join("")
-  cmd = cmd.replace(prefix,"")
-  cmd = cmd.trim()
+bot.on("message", function(msg){
+
+
   var env = {
     "bot":bot,
     "msg":msg,
     "general":general,
     "process":process
   }
-  for(var i = 0;i<Object.keys(general).length;i++){
-    if(Object.keys(general)[i].name === cmd){
-      Object.keys(general)[i].process(bot,msg,env)
-      return
+
+  var input = msg.content.toLowerCase();
+    if (!input.startsWith(prefix)) return;
+    if (msg.author.bot) return;
+
+    var input = msg.content.toLowerCase().replace(prefix, "");
+    for(var x of Object.keys(general)){
+      if(input.startsWith(x)){
+        general[x].process(bot,msg,env);
+        break;
+      }
     }
-  }
-  }
+
+
 });
 
 bot.login(token);
