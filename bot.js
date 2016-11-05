@@ -34,6 +34,7 @@ var owner = "ID"
 }
 
 if(args.h || args.help){
+  console.log("")
   console.log("I am an instance of Beta's open source discord.js bot")
   console.log("I was written to be modular and allow users to create plugins")
   console.log("To start me you can do one of the 3 following options")
