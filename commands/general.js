@@ -28,7 +28,7 @@ command.help = {
     help += "\n\nFor more info on a command type "+env.prefix+"help [command name]\n```"
     msg.channel.sendMessage("Sending commands now...").then(function(message){
     msg.author.sendMessage(help).then(function(){
-      message.edit("Commands in your DM's now")
+      message.edit("Commands in your DM's now!")
     })
   })
 }else{
@@ -45,9 +45,9 @@ command.help = {
 command.git = {
   "name":"git",
   "usage":"git",
-  "description":"Sends a link to bot github URL",
+  "description":"Sends a link to the bot's GitHub repo",
   "process":function(bot,msg,env){
-    msg.reply("My github url is here: https://github.com/Betaaaaa/v10-discord.js-discordbot")
+    msg.reply("check out my GitHub at https://github.com/Betaaaaa/v10-discord.js-discordbot !")
   }
 }
 
