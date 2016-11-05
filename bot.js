@@ -2,14 +2,15 @@ var Discord = require("discord.js");
 var bot = new Discord.Client();
 var prefix = "?" //You can change this to a prefix you like but, PLEASE DON'T USE "!"
 var general = require("./commands/general.js")
-console.log(process.argv)
+var args = require("optimist").argv
+
 if(process.env.BOT_TOKEN){
   var token = process.env.BOT_TOKEN
 }else{
   // Put your token below if you are not using an environment variable
-if(process.argv[3]){
+if(args.token){
   // This code is for if you incorporate token when running bot
-  var token = process.argv[3]
+  var token = args.token
 
 }else{
 // If your too lazy to do any of these put your token below:
@@ -27,6 +28,20 @@ if(process.env.OWNER_ID){
 // Put your ID here
 var owner = "ID"
 
+}
+
+if(args.h || args.help){
+  console.log("I am an instance of Beta's open source discord.js bot")
+  console.log("I was written to be modular and allow users to create plugins")
+  console.log("To start me you can do one of the 3 following options")
+  console.log("\n")
+  console.log("\n")
+  console.log("1. Change the values in bot.js and type 'node bot.js'")
+  console.log("\n")
+  console.log("2. Set 2 environment variables called BOT_TOKEN and OWNER_ID (the contents of them is obvious)")
+  console.log("\n")
+  console.log("3. Run this command: 'node bot.js --token [TOKEN] --owner [OWNER ID]'")
+  process.exit()
 }
 
 bot.on("ready", () => {
