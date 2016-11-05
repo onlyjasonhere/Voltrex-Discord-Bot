@@ -10,10 +10,32 @@ if(process.env.BOT_TOKEN){
 
 }
 
+if(process.env.OWNER_ID){
+  var owner = String(process.env.OWNER_ID)
+}else{
+
+// Put your ID here
+var owner = "ID"
+
+}
 
 bot.on("ready", () => {
     console.log("Bot is online and ready on " + bot.guilds.size + " servers!");
 });
+
+bot.on("message",function(msg){
+if(msg.author.id === owner){
+  if(msg.content === prefix+"reload"){
+    try{
+      delete require.cache[require.resolve("./commands/general.js")]
+      general = require("./commands/general.js")
+      msg.channel.sendMessage("Files reloaded!")
+    }catch(err){
+      msg.channel.sendMessage("Could not reload files, error: ```"+err.stack+"```")
+    }
+  }
+}
+})
 
 bot.on("message", function(msg){
 
