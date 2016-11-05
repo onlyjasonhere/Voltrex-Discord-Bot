@@ -44,7 +44,20 @@ if(args.h || args.help){
   console.log("2. Set 2 environment variables called BOT_TOKEN and OWNER_ID (the contents of them is obvious)")
   console.log("")
   console.log("3. Run this command: 'node bot.js --token [TOKEN] --owner [OWNER ID]'")
+
+  console.log("\n\n")
+  console.log(`
+Other possible start up flags:
+    --token           The token to start the bot with
+    --git, -g         Link to github repo,
+    --owner           Set owner id for when bot is run
+    --help, -h        Shows this message`)
   process.exit()
+}
+
+if(args.g || args.git){
+  console.log("My github link: https://github.com/Betaaaaa/v10-discord.js-discordbot")
+  process.exit(0)
 }
 
 bot.on("ready", () => {
