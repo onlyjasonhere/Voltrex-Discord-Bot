@@ -24,9 +24,12 @@ var token = "TOKEN"
 if(process.env.OWNER_ID){
   var owner = String(process.env.OWNER_ID)
 }else{
-
+if(args.owner){
+  var owner = args.owner
+}else{
 // Put your ID here
 var owner = "ID"
+}
 
 }
 
