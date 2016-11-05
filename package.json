@@ -1,7 +1,7 @@
 {
   "name": "v10-discord-bot",
   "version": "1.0.0",
-  "description": "A simple Discord.js modular bot",
+  "description": "A simple modular Discord.js bot",
   "main": "bot.js",
   "scripts": {
     "test": "node bot.js"
