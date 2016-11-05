@@ -60,6 +60,27 @@ bot.on("ready", () => {
     console.log("Bot is online and ready on " + bot.guilds.size + " servers!");
 });
 
+bot.on('guildMemberAdd', (guild, user) => {
+	if (guild.id == "244596212144144395") {
+		var defaultChannel = bot.channels.get(guild.id);
+		defaultChannel.sendMessage("Welcome, " + user.user.username + " to the Voltrex Development Server!.");
+	}
+});
+
+bot.on('guildBanAdd', (guild, user) => {
+	if (guildsToAnnounce.indexOf(guild.id) > -1) {
+		var defaultChannel = bot.channels.get(guild.id);
+		defaultChannel.sendMessage(":hammer: " + user.username + " was banned.");
+	}
+});
+
+bot.on('guildMemberRemove', (guild, user) => {
+	if (guild.id == "244596212144144395") {
+		var defaultChannel = bot.channels.get(guild.id);
+		defaultChannel.sendMessage(user.user.username + " has left the server. RIP " + user.user.username + ".");
+	}
+});
+
 bot.on("message", function(msg) {
     if (msg.author.id === owner) {
         if (msg.content === prefix + "reload") {
@@ -75,7 +96,6 @@ bot.on("message", function(msg) {
 })
 
 bot.on("message", function(msg) {
-
     var env = {
         "bot": bot,
         "msg": msg,
