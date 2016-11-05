@@ -1,0 +1,26 @@
+{
+  "name": "v10-discord-bot",
+  "version": "1.0.0",
+  "description": "A simple Discord.js modular bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "node bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Betaaaaa/v10-discord.js-discordbot.git"
+  },
+  "keywords": [
+    "bot",
+    "discord",
+    "modular",
+    "javascript",
+    "websockets"
+  ],
+  "author": "Beta, Joseph and ASIANBOI",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Betaaaaa/v10-discord.js-discordbot/issues"
+  },
+  "homepage": "https://github.com/Betaaaaa/v10-discord.js-discordbot#readme"
+}
