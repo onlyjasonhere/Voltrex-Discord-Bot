@@ -8,7 +8,7 @@ command.ping = {
     var now = Date.now()
     msg.channel.sendMessage("Pinging...").then(function(message){
       var end = Date.now()
-      message.edit("Pong! `"+(end - now)+"`")
+      message.edit("Pong! `"+(end - now)+"ms`")
     })
   }
 }
