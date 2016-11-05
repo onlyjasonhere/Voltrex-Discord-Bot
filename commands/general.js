@@ -32,5 +32,14 @@ command.help = {
   }
 }
 
+command.git = {
+  "name":"git",
+  "usage":"git",
+  "description":"Sends a link to bot github URL",
+  "process":function(bot,msg,env){
+    msg.reply("My github url is here: https://github.com/Betaaaaa/v10-discord.js-discordbot")
+  }
+}
+
 
 module.exports = command
