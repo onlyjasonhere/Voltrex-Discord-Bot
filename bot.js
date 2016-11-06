@@ -12,10 +12,8 @@ if (process.env.BOT_TOKEN) {
     if (args.token) {
         // This code is for if you incorporate token when running bot
         var token = args.token
-
     } else {
         // If your too lazy to do any of these put your token below:
-
         var token = "BOT-TOKEN"
     }
 }
