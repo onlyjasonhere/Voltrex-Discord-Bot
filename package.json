@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Betaaaaa/v10-discord.js-discordbot#readme",
   "dependencies": {
-    "optimist": "^0.6.1"
+    "optimist": "^0.6.1",
+	"discord.js": "^10.0.0"
   }
 }
