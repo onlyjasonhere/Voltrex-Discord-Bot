@@ -25,7 +25,7 @@ if (process.env.OWNER_ID) {
         var owner = args.owner
     } else {
         // Put your ID here
-        var owner = "171319044715053057"
+        var owner = "ID"
     }
 }
 
@@ -54,23 +54,13 @@ Other possible start up flags:
     --token           The token to start the bot with
     --git, -g         Link to github repo,
     --owner           Set owner id for when bot is run
-    --help, -h        Shows this message
-    --admins          Set IDs for people who should be able to acces admin commands`)
+    --help, -h        Shows this message`)
     process.exit()
 }
 
 if (args.g || args.git) {
     console.log("My github link: https://github.com/Betaaaaa/Voltrex-Discord-Bot")
     process.exit(0)
-}
-
-if(args.admins) {
-
-  var admins = args.admins.toString().split(" ")
-  console.log("Setting admins: "+admins)
-}else{
-  console.log("No admins specified, just taking owner argument")
-  var admins = []
 }
 
 bot.on("error", () => {
@@ -142,7 +132,7 @@ bot.on("message", function(msg) {
         }
     }
 
-    if(msg.author.id === owner || admins.indexOf(msg.author.id) != -1){
+    if(msg.author.id === owner){
       for (var x of Object.keys(admin)) {
           if (input.startsWith(x)) {
               try {
