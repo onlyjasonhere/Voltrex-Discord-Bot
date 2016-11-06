@@ -74,6 +74,7 @@ command.addcom = {
   "usage":"addcom <name> <output>",
   "description":"Add a custom command to the current server!",
   "process":function(bot,msg,env){
+    if(msg.member.roles.find("name","Bot Commander")){
       var args = msg.content.split(" ").splice(1).join(" ")
       var cmd = args.split(" ")[0]
       var output = args.replace(cmd+" ","")
@@ -94,6 +95,7 @@ command.addcom = {
         }
         msg.channel.sendMessage("Ok! Custom command created")
       })
+    }
   }
 }
 
@@ -102,6 +104,7 @@ command.delcom = {
   "usage":"delcom <command name>",
   "description":"Deletes custom commands from a server",
   "process":function(bot,msg,env){
+    if(msg.member.roles.find("name","Bot Commander")){
     var cmd = msg.content.split(" ").splice(1).join(" ")
     if(!custom[msg.guild.id] || custom[msg.guild.id] === {}){
       msg.reply("This server has no custom commands :sob:")
@@ -117,6 +120,7 @@ command.delcom = {
       msg.reply("That command does not exist!")
     }
   }
+  }
 }
 
 command.comlist = {
@@ -124,6 +128,7 @@ command.comlist = {
   "usage":"comlist",
   "description":"Lists all custom commands on a server",
   "process":function(bot,msg,env){
+
     if(!custom[msg.guild.id] || custom[msg.guild.id] === {} ){
       msg.channel.sendMessage("This server has no custom commands")
       return
