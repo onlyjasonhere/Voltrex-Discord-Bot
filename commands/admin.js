@@ -10,3 +10,13 @@ command.gitupdate = {
     process.exit(0);
   }
 }
+
+command.shutdown = {
+  "name":"shutdown",
+  "usage":"shutdown <reason>",
+  "description":"Restarts bot",
+  "process":function(bot,msg,env){
+    msg.reply("shutdown initiated! Bot shutting down...");
+    process.exit(0);
+  }
+}
