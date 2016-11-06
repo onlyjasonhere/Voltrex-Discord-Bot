@@ -1,4 +1,6 @@
 var command = {}
+var custom = require("../data/customcoms.json")
+var fs = require("fs")
 
 command.ping = {
   "name":"ping",
@@ -64,6 +66,77 @@ command.info = {
   "description":"Displays basic information about the bot.",
   "process":function(bot,msg,env){
     msg.reply("Repository created by **Beta ツ#2214**, made for the people.\nDevelopers:\n   Beta ツ#2214\n   ASIANBOI#4122\n   Joseph#5210\nContributors:\n   Marisa Kirisame#7740")
+  }
+}
+
+command.addcom = {
+  "name":"addcom",
+  "usage":"addcom <name> <output>",
+  "description":"Add a custom command to the current server!",
+  "process":function(bot,msg,env){
+      var args = msg.content.split(" ").splice(1).join(" ")
+      var cmd = args.split(" ")[0]
+      var output = args.replace(cmd+" ","")
+      if(!custom[msg.guild.id]){
+        custom[msg.guild.id] = {}
+      }
+      if(custom[msg.guild.id][cmd]){
+        msg.channel.sendMessage("That command already exists!")
+        return;
+      }
+
+      custom[msg.guild.id][cmd] = output
+      console.log(custom)
+      fs.writeFile("./data/customcoms.json",JSON.stringify(custom),function(err){
+        if(err){
+          msg.reply("Could not create custom command")
+          console.log("Could not create custom command:\n\n"+err)
+        }
+        msg.channel.sendMessage("Ok! Custom command created")
+      })
+  }
+}
+
+command.delcom = {
+  "name":"delcom",
+  "usage":"delcom <command name>",
+  "description":"Deletes custom commands from a server",
+  "process":function(bot,msg,env){
+    var cmd = msg.content.split(" ").splice(1).join(" ")
+    if(!custom[msg.guild.id] || custom[msg.guild.id] === {}){
+      msg.reply("This server has no custom commands :sob:")
+      return
+    }
+    if(custom[msg.guild.id][cmd]){
+      msg.reply("Deleting command")
+      delete custom[msg.guild.id][cmd]
+      fs.writeFile("../data/customcoms.json",JSON.stringify(custom),function(err){
+      if(err) return
+      })
+    }else{
+      msg.reply("That command does not exist!")
+    }
+  }
+}
+
+command.comlist = {
+  "name":"comlist",
+  "usage":"comlist",
+  "description":"Lists all custom commands on a server",
+  "process":function(bot,msg,env){
+    if(!custom[msg.guild.id] || custom[msg.guild.id] === {} ){
+      msg.channel.sendMessage("This server has no custom commands")
+      return
+    }
+
+    var cmdtext = "```\nCustom Commands:\n"
+    for(var i = 0;i < Object.keys(custom[msg.guild.id]).length;i++){
+      cmdtext += `${env.prefix}${Object.keys(custom[msg.guild.id])[i]}\n`
+    }
+    cmdtext += "```"
+    msg.channel.sendMessage(cmdtext)
+
+
   }
 }
 

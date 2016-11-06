@@ -4,6 +4,8 @@ var prefix = "v!" //You can change this to a prefix you like but, PLEASE DON'T U
 var general = require("./commands/general.js")
 var admin = require("./commands/admin.js")
 var args = require("optimist").argv
+var custom = require("./data/customcoms.json")
+var fs = require("fs")
 
 if (process.env.BOT_TOKEN) {
     var token = process.env.BOT_TOKEN
@@ -80,6 +82,7 @@ bot.on("error", () => {
 bot.on("ready", () => {
     console.log("Bot is online and ready on " + bot.guilds.size + " servers!");
     bot.user.setStatus("online", prefix + 'help | ' + bot.guilds.size + ' Servers');
+
 });
 
 bot.on('guildMemberAdd', function(member) {
@@ -88,11 +91,7 @@ bot.on('guildMemberAdd', function(member) {
       }
 });
 
-bot.on('guildBanAdd', (member) => {
-  if(member.guild.channels.find("name","v-logs")){
-      member.guild.channels.find("name","v-logs").sendMessage("```diff\n! " + member.user.username + "\n(" + member.user.id + ")```");
-    }
-});
+
 
 bot.on('guildMemberRemove', (member) => {
   if(member.guild.channels.find("name","v-logs")){
@@ -112,6 +111,18 @@ bot.on("message", function(msg) {
             }
         }
     }
+})
+
+bot.on("message",function(msg){
+  if(msg.content.startsWith(prefix)){
+    var cmd = msg.content.replace(prefix,"")
+    var cmd = cmd.trim()
+    if(custom[msg.guild.id]){
+      if(custom[msg.guild.id][cmd]){
+        msg.channel.sendMessage(custom[msg.guild.id][cmd])
+      }
+    }
+  }
 })
 
 bot.on("message", function(msg) {
