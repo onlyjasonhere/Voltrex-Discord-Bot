@@ -122,10 +122,9 @@ bot.on("message", function(msg) {
             try {
                 general[x].process(bot, msg, env);
             } catch (err) {
-                msg.reply("It seems I could not process that command properely, the bot developer has been notified")
+                msg.reply("It seems I could not process that command properly, the bot developer has been notified")
                 console.log("Error processing " + msg.content + ", error was: " + err.stack)
             }
-            break;
         }
     }
 
@@ -135,10 +134,9 @@ bot.on("message", function(msg) {
               try {
                   admin[x].process(bot, msg, env);
               } catch (err) {
-                  msg.reply("It seems I could not process that command properely, the bot developer has been notified")
+                  msg.reply("It seems I could not process that command properly, the bot developer has been notified")
                   console.log("Error processing " + msg.content + ", error was: " + err.stack)
               }
-              break;
           }
       }
     }
