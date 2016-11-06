@@ -25,7 +25,7 @@ if (process.env.OWNER_ID) {
         var owner = args.owner
     } else {
         // Put your ID here
-        var owner = "171319044715053057"
+        var owner = "ID"
     }
 }
 
