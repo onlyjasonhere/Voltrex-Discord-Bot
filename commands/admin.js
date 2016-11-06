@@ -7,7 +7,7 @@ command.gitupdate = {
   "description":"For Admins Only - Updates Bot",
   "process":function(bot,msg,env){
     child_process.execSync('git pull');
-    process.exit(0);
+    process.exit(1);
   }
 }
 
@@ -17,6 +17,6 @@ command.shutdown = {
   "description":"Restarts bot",
   "process":function(bot,msg,env){
     msg.reply("shutdown initiated! Bot shutting down...");
-    process.exit(0);
+    process.exit(1);
   }
 }
