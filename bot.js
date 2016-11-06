@@ -65,8 +65,9 @@ if (args.g || args.git) {
 }
 
 if(args.admins) {
-  console.log("Setting admins: "+args.admins.toString().split(" "))
+
   var admins = args.admins.toString().split(" ")
+  console.log("Setting admins: "+admins)
 }else{
   console.log("No admins specified, just taking owner argument")
   var admins = []
