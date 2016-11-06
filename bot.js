@@ -119,7 +119,19 @@ bot.on("message",function(msg){
     var cmd = cmd.trim()
     if(custom[msg.guild.id]){
       if(custom[msg.guild.id][cmd]){
-        msg.channel.sendMessage(custom[msg.guild.id][cmd])
+        var toSend = custom[msg.guild.id][cmd]
+        
+        toSend = toSend.replace(/{user}/gi,msg.author.toString())
+        toSend = toSend.replace(/{id}/gi,msg.author.id)
+        toSend = toSend.replace(/{username}/gi,msg.author.username)
+        toSend = toSend.replace(/{discriminator}/gi,msg.author.discriminator)
+        toSend = toSend.replace(/{server}/gi,msg.guild.name)
+        toSend = toSend.replace(/{serverid}/gi,msg.guild.id)
+        toSend = toSend.replace(/{channel}/gi,"<#"+msg.channel.id+">")
+        toSend = toSend.replace(/{channelid}/gi,msg.channel.id)
+
+
+        msg.channel.sendMessage(toSend)
       }
     }
   }
