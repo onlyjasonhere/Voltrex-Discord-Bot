@@ -2,6 +2,7 @@ var Discord = require("discord.js");
 var bot = new Discord.Client();
 var prefix = "v!" //You can change this to a prefix you like but, PLEASE DON'T USE "!"
 var general = require("./commands/general.js")
+var admin = require("./comamnds/admin.js")
 var args = require("optimist").argv
 
 if (process.env.BOT_TOKEN) {
@@ -127,6 +128,20 @@ bot.on("message", function(msg) {
             }
             break;
         }
+    }
+
+    if(msg.author.id === owner){
+      for (var x of Object.keys(admin)) {
+          if (input.startsWith(x)) {
+              try {
+                  admin[x].process(bot, msg, env);
+              } catch (err) {
+                  msg.reply("It seems I could not process that command properely, the bot developer has been notified")
+                  console.log("Error processing " + msg.content + ", error was: " + err.stack)
+              }
+              break;
+          }
+      }
     }
 });
 
