@@ -57,7 +57,8 @@ if (args.g || args.git) {
 }
 
 bot.on("ready", () => {
-    console.log("Bot is online and ready on " + bot.guilds.size + " servers!");
+	console.log(bot.user.username + " is online and ready on " + bot.guilds.size + " servers!"
+	bot.user.setStatus("online", prefix + 'help | ' + bot.guilds.size + ' Servers');
 });
 
 bot.on('guildMemberAdd', (guild, user) => {
