@@ -79,7 +79,7 @@ bot.on("error", () => {
 
 bot.on("ready", () => {
     console.log("Bot is online and ready on " + bot.guilds.size + " servers!");
-    bot.user.setGame(prefix + 'help | ' + bot.guilds.size + ' Servers', "twitch.tv/discordapp");
+    bot.user.setGame(prefix + 'help | ' + bot.guilds.size + ' Servers', "https://twitch.tv/beta_rocket");
 });
 
 bot.on('guildMemberAdd', function(member) {
