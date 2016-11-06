@@ -26,7 +26,7 @@ command.help = {
       help += `${env.prefix}${commands[Object.keys(commands)[i]].usage} - ${commands[Object.keys(commands)[i]].description}\n`
     }
     for(var i = 0;i<Object.keys(env.admin).length;i++){
-      help += `${env.prefix}${commands[Object.keys(env.admin)[i]].usage} - ${commands[Object.keys(env.admin)[i]].description}\n`
+      help += `${env.prefix}${env.admin[Object.keys(env.admin)[i]].usage} - ${env.admin[Object.keys(env.admin)[i]].description}\n`
     }
     help += "\n\nFor more info on a command type "+env.prefix+"help [command name]\n```"
     msg.channel.sendMessage("Sending commands now...").then(function(message){
