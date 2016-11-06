@@ -131,4 +131,3 @@ bot.on("message", function(msg){
 });
 
 bot.login(token);
-�
