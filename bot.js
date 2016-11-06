@@ -1,6 +1,6 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
-var prefix = "?" //You can change this to a prefix you like but, PLEASE DON'T USE "!"
+var prefix = "v!" //You can change this to a prefix you like but, PLEASE DON'T USE "!"
 var general = require("./commands/general.js")
 var args = require("optimist").argv
 
