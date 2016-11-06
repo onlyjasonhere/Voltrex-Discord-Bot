@@ -2,7 +2,7 @@ var Discord = require("discord.js");
 var bot = new Discord.Client();
 var prefix = "v!" //You can change this to a prefix you like but, PLEASE DON'T USE "!"
 var general = require("./commands/general.js")
-var admin = require("./comamnds/admin.js")
+var admin = require("./commands/admin.js")
 var args = require("optimist").argv
 
 if (process.env.BOT_TOKEN) {
