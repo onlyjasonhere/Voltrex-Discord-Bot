@@ -58,5 +58,22 @@ command.git = {
   }
 }
 
+command.git = {
+  "name":"git",
+  "usage":"git",
+  "description":"Sends a link to the bot's GitHub repo",
+  "process":function(bot,msg,env){
+    msg.reply("check out my GitHub at https://github.com/Betaaaaa/v10-discord.js-discordbot !")
+  }
+}
+
+command.git = {
+  "name":"info",
+  "usage":"info",
+  "description":"Displays basic information about the bot.",
+  "process":function(bot,msg,env){
+    msg.reply("Repository created by **Beta ツ#2214**, made for the people.\nDevelopers:\n   Beta ツ#2214\n   ASIANBOI#4122\n   Joseph#5210\nContributors:\n   Marisa Kirisame#7740")
+  }
+}
 
 module.exports = command
