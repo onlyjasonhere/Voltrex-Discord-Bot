@@ -27,7 +27,6 @@ if (process.env.OWNER_ID) {
         // Put your ID here
         var owner = "ID"
     }
-
 }
 
 if (args.h || args.help) {
@@ -100,8 +99,6 @@ bot.on("message", function(msg) {
 })
 
 bot.on("message", function(msg) {
-
-
     var env = {
         "bot": bot,
         "msg": msg,
