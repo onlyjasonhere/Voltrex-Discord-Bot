@@ -116,20 +116,6 @@ bot.on("message", function(msg) {
     if (!input.startsWith(prefix)) return;
     if (msg.author.bot) return;
 
-    if(msg.author.id === owner){
-      for (var x of Object.keys(admin)) {
-          if (input.startsWith(x)) {
-              try {
-                  admin[x].process(bot, msg, env);
-              } catch (err) {
-                  msg.reply("It seems I could not process that command properely, the bot developer has been notified")
-                  console.log("Error processing " + msg.content + ", error was: " + err.stack)
-              }
-              
-          }
-      }
-    }
-
     var input = msg.content.toLowerCase().replace(prefix, "");
     for (var x of Object.keys(general)) {
         if (input.startsWith(x)) {
@@ -143,7 +129,19 @@ bot.on("message", function(msg) {
         }
     }
 
-
+    if(msg.author.id === owner){
+      for (var x of Object.keys(admin)) {
+          if (input.startsWith(x)) {
+              try {
+                  admin[x].process(bot, msg, env);
+              } catch (err) {
+                  msg.reply("It seems I could not process that command properely, the bot developer has been notified")
+                  console.log("Error processing " + msg.content + ", error was: " + err.stack)
+              }
+              break;
+          }
+      }
+    }
 });
 
 bot.login(token);
