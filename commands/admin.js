@@ -2,8 +2,8 @@ var command = {}
 const child_process = require('child_process');
 
 command.update = {
-  "name":"gitupdate",
-  "usage":"gitupdate",
+  "name":"update",
+  "usage":"update",
   "description":"For Admins Only - Updates Bot",
   "process":function(bot,msg,env){
     msg.channel.sendMessage("Ok updating and then shutting down")
