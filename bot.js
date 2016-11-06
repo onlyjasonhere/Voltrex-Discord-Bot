@@ -108,7 +108,8 @@ bot.on("message", function(msg) {
         "general": general,
         "process": process,
         "prefix": prefix,
-        "owner":owner
+        "owner":owner,
+        "admin":admin
     }
 
     var input = msg.content.toLowerCase();
