@@ -7,7 +7,8 @@ command.update = {
   "description":"For Admins Only - Updates Bot",
   "process":function(bot,msg,env){
     msg.channel.sendMessage("Ok updating and then shutting down")
-    child_process.execSync('git pull');
+    var evaled = eval(child_process.execSync('git pull origin').toString());
+    msg.channel.sendMessage(evaled);
     process.exit(1);
   }
 }
