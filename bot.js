@@ -62,22 +62,22 @@ bot.on("ready", () => {
 });
 
 bot.on('guildMemberAdd', (guild, member) => {
-	if (guild.id == "244596212144144395") {
-		var defaultChannel = bot.channels.get(guild.id);
+	if (guild.id === "244596212144144395") {
+		var defaultChannel = bot.channels.get('id', guild.id);
 		defaultChannel.sendMessage("Welcome, " + member.user + " to the Voltrex Development Server!.");
 	}
 });
 
 bot.on('guildBanAdd', (guild, user) => {
-	if (guildsToAnnounce.indexOf(guild.id) > -1) {
-		var defaultChannel = bot.channels.get(guild.id);
+	if (guild.id === "244596212144144395") {
+		var defaultChannel = bot.channels.get('id', guild.id);
 		defaultChannel.sendMessage(":hammer: " + user.user.username + " was banned.");
 	}
 });
 
 bot.on('guildMemberRemove', (guild, member) => {
-	if (guild.id == "244596212144144395") {
-		var defaultChannel = bot.channels.get(guild.id);
+	if (guild.id === "244596212144144395") {
+		var defaultChannel = bot.channels.get('id', guild.id);
 		defaultChannel.sendMessage(member.user.username + " has left the server. RIP " + member.user.username + ".");
 	}
 });
