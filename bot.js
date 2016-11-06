@@ -29,6 +29,12 @@ if (process.env.OWNER_ID) {
     }
 }
 
+if(owner != "ID"){
+  console.log("Owner set: "+owner)
+}else{
+  console.log("I have no owner, I will respond to no admin commands")
+}
+
 if (args.h || args.help) {
     console.log("")
     console.log("I am an instance of Beta's open source discord.js bot")
