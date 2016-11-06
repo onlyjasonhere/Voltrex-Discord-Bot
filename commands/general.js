@@ -113,8 +113,8 @@ command.delcom = {
     if(custom[msg.guild.id][cmd]){
       msg.reply("Deleting command")
       delete custom[msg.guild.id][cmd]
-      fs.writeFile("../data/customcoms.json",JSON.stringify(custom),function(err){
-      if(err) return
+      fs.writeFile("./data/customcoms.json",JSON.stringify(custom),function(err){
+      if(err) console.log(err)
       })
     }else{
       msg.reply("That command does not exist!")
