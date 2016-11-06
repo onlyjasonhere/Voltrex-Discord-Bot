@@ -16,7 +16,7 @@ command.shutdown = {
   "usage":"shutdown <reason>",
   "description":"Restarts bot",
   "process":function(bot,msg,env){
-    msg.reply("shutdown initiated! Bot shutting down...");
+    msg.channel.sendMessage("Shutdown initiated! Bot shutting down...");
     process.exit(1);
   }
 }
