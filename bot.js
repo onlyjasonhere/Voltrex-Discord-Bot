@@ -63,6 +63,14 @@ if (args.g || args.git) {
     process.exit(0)
 }
 
+if(args.admins) {
+  console.log("Setting admins: "+args.admins.split(" "))
+  var admins = args.admins.split(" ")
+}else{
+  console.log("No admins specified, just taking owner argument")
+  var admins = []
+}
+
 bot.on("error", () => {
     console.log(error)
 })
@@ -132,7 +140,7 @@ bot.on("message", function(msg) {
         }
     }
 
-    if(msg.author.id === owner){
+    if(msg.author.id === owner || admins.indexOf(msg.author.id) != -1){
       for (var x of Object.keys(admin)) {
           if (input.startsWith(x)) {
               try {
