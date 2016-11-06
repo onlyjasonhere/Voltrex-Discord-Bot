@@ -42,7 +42,9 @@ command.help = {
   if(env.admin[e]){
     msg.channel.sendMessage(`\`\`\`\n${env.prefix}${env.admin[e].usage}\n\n${env.admin[e].description}\`\`\``)
   }
-  if(!env.admin[e] && !env.general[e])
+  if(!env.admin[e] && !env.general[e]){
+    msg.channel.sendMessage("Sorry I could not find command `"+e+"`")
+  }
 }
   }
 }
