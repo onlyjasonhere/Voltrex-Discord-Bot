@@ -69,18 +69,21 @@ bot.on("ready", () => {
 });
 
 bot.on('guildMemberAdd', function(member) {
-    if (member.guild.id = "244596212144144395")
-        bot.channels.find('id', "244625001464987649").sendMessage("```diff\n+ " + member.user.username + "\n(" + member.user.id + ")```");
+    if(member.guild.channels.find("name","v-logs")){
+        member.guild.channels.find("name","v-logs").sendMessage("```diff\n+ " + member.user.username + "\n(" + member.user.id + ")```");
+      }
 });
 
 bot.on('guildBanAdd', (member) => {
-    if (member.guild.id = "244596212144144395")
-        bot.channels.find('id', "244625001464987649").sendMessage("```diff\n! " + member.user.username + "\n(" + member.user.id + ")```");
+  if(member.guild.channels.find("name","v-logs")){
+      member.guild.channels.find("name","v-logs").sendMessage("```diff\n! " + member.user.username + "\n(" + member.user.id + ")```");
+    }
 });
 
 bot.on('guildMemberRemove', (member) => {
-    if (member.guild.id = "244596212144144395")
-        bot.channels.find('id', "244625001464987649").sendMessage("```diff\n- " + member.user.username + "\n(" + member.user.id + ")```");
+  if(member.guild.channels.find("name","v-logs")){
+      member.guild.channels.find("name","v-logs").sendMessage("```diff\n- " + member.user.username + "\n(" + member.user.id + ")```");
+    }
 });
 
 bot.on("message", function(msg) {
