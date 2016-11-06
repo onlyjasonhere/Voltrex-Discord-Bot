@@ -61,25 +61,19 @@ bot.on("ready", () => {
 	bot.user.setStatus("online", prefix + 'help | ' + bot.guilds.size + ' Servers');
 });
 
-bot.on('guildMemberAdd', (member) => {
-	if (member.guild.id === "244596212144144395") {
-		var defaultChannel = bot.channels.get('id', member.guild.id);
-		defaultChannel.sendMessage("Welcome, " + member.user + " to the Voltrex Development Server!.");
-	}
+bot.on('guildMemberAdd', function(member) {
+	if (member.guild.id = "244596212144144395")
+		bot.channels.get('id', member.guild.id).sendMessage("Welcome " + member.user + " to the Voltrex Development Server!");
 });
 
 bot.on('guildBanAdd', (member) => {
-	if (member.guild.id === "244596212144144395") {
-		var defaultChannel = bot.channels.get('id', member.guild.id);
-		defaultChannel.sendMessage(":hammer: " + user.user.username + " was banned.");
-	}
+	if (member.guild.id = "244596212144144395")
+		bot.channels.get('id', member.guild.id).sendMessage(":hammer: " + member.user.username + " was banned.");
 });
 
 bot.on('guildMemberRemove', (member) => {
-	if (member.guild.id === "244596212144144395") {
-		var defaultChannel = bot.channels.get('id', member.guild.id);
-		defaultChannel.sendMessage(member.user.username + " has left the server. RIP " + member.user.username + ".");
-	}
+	if (member.guild.id = "244596212144144395")
+		bot.channels.get('id', member.guild.id).sendMessage(member.user.username + " has left the server. RIP " + member.user.username + ".");
 });
 
 bot.on("message", function(msg) {
