@@ -63,17 +63,17 @@ bot.on("ready", () => {
 
 bot.on('guildMemberAdd', function(member) {
 	if (member.guild.id = "244596212144144395")
-		bot.channels.get('id', member.guild.id).sendMessage("Welcome " + member.user + " to the Voltrex Development Server!");
+		bot.channels.find('id', member.guild.id).sendMessage("Welcome " + member.user + " to the Voltrex Development Server!");
 });
 
 bot.on('guildBanAdd', (member) => {
 	if (member.guild.id = "244596212144144395")
-		bot.channels.get('id', member.guild.id).sendMessage(":hammer: " + member.user.username + " was banned.");
+		bot.channels.find('id', member.guild.id).sendMessage(":hammer: " + member.user.username + " was banned.");
 });
 
 bot.on('guildMemberRemove', (member) => {
 	if (member.guild.id = "244596212144144395")
-		bot.channels.get('id', member.guild.id).sendMessage(member.user.username + " has left the server. RIP " + member.user.username + ".");
+		bot.channels.find('id', member.guild.id).sendMessage(member.user.username + " has left the server. RIP " + member.user.username + ".");
 });
 
 bot.on("message", function(msg) {
