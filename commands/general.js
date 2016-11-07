@@ -116,7 +116,7 @@ command.addcom = {
             }
 
             custom[msg.guild.id][cmd] = output
-            console.log(custom)
+          
             fs.writeFile("./data/customcoms.json", JSON.stringify(custom), function(err) {
                 if (err) {
                     msg.reply("Could not create custom command")
