@@ -207,8 +207,12 @@ bot.on("message", function(msg) {
                 }
                 }
 
-
+                if(toSend.indexOf("{pm}") === -1){
                 msg.channel.sendMessage(toSend)
+              }else{
+                toSend = toSend.replace(/{pm}/gi,"")
+                msg.author.sendMessage(toSend)
+              }
                 return
             }
         }
