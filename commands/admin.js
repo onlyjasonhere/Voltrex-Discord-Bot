@@ -10,7 +10,7 @@ command.update = {
             var evaled = eval("child_process.execSync('git pull origin').toString()");
 			e.delete();
             msg.channel.sendMessage(evaled).then(function(message) {
-                if (evaled.indexOf("up-to-date") != 0) {
+                if (evaled.indexOf("Already up-to-date.") > -1) {
                     message.edit("There was nothing to update!");
 					return;
                 } else {
