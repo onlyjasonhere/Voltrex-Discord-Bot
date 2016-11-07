@@ -1,6 +1,6 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
-
+var args = require("optimist").argv
 if(args.prefix){
   var prefix = args.prefix
 }else{
@@ -17,7 +17,7 @@ var prefix = "v!" //You can change this to a prefix you like but, PLEASE DON'T U
 
 var general = require("./commands/general.js")
 var admin = require("./commands/admin.js")
-var args = require("optimist").argv
+
 var custom = require("./data/customcoms.json")
 var fs = require("fs")
 
