@@ -30,7 +30,7 @@ command.shutdown = {
     "description": "Restarts bot",
     "process": function(bot, msg, env) {
 		var reason = msg.content.split(" ").splice(1).join(" ");
-        msg.channel.sendMessage("Shutdown initiated! Bot shutting down...\nReason: ${reason}").then(function(t) {
+        msg.channel.sendMessage(`Shutdown initiated! Bot shutting down...\nReason: ${reason}`).then(function(t) {
 			process.exit(0)
         })
     }
