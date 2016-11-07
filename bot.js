@@ -65,11 +65,12 @@ if (args.h || args.help) {
     console.log("\n\n")
     console.log(`
 Other possible start up flags:
-    --token           The token to start the bot with
-    --git, -g         Link to github repo,
-    --owner           Set owner id for when bot is run
-    --help, -h        Shows this message
-    --admins          Set IDs for people who should be able to acces admin commands`)
+    --token                        The token to start the bot with
+    --git, -g                      Link to github repo,
+    --owner                        Set owner id for when bot is run
+    --help, -h                     Shows this message
+    --admins "[ID1] [ID2]"         Set IDs for people who should be able to acces admin commands
+    --prefix, -p                   Sets prefix for the bot to run`)
     process.exit()
 }
 
