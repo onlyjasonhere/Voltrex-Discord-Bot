@@ -1,6 +1,7 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var args = require("optimist").argv
+
 if(args.prefix){
   var prefix = args.prefix
 }else{
@@ -17,6 +18,7 @@ var prefix = "v!" //You can change this to a prefix you like but, PLEASE DON'T U
 
 var general = require("./commands/general.js")
 var admin = require("./commands/admin.js")
+var fun = require("./commands/fun.js")
 
 var custom = require("./data/customcoms.json")
 var fs = require("fs")
@@ -166,7 +168,8 @@ bot.on("message", function(msg) {
         "prefix": prefix,
         "owner": owner,
         "admin": admin,
-        "admins": admins
+        "admins": admins,
+        "fun":fun
     }
 
     var input = msg.content.toLowerCase();
@@ -179,6 +182,18 @@ bot.on("message", function(msg) {
         if (input.startsWith(x)) {
             try {
                 general[x].process(bot, msg, env);
+            } catch (err) {
+                msg.reply("It seems I could not process that command properely, the bot developer has been notified")
+                console.log("Error processing " + msg.content + ", error was: " + err.stack)
+            }
+            break;
+        }
+    }
+
+    for (var x of Object.keys(fun)) {
+        if (input.startsWith(x)) {
+            try {
+                fun[x].process(bot, msg, env);
             } catch (err) {
                 msg.reply("It seems I could not process that command properely, the bot developer has been notified")
                 console.log("Error processing " + msg.content + ", error was: " + err.stack)

@@ -48,9 +48,14 @@ command.help = {
             for (var i = 0; i < Object.keys(commands).length; i++) {
                 help += `${env.prefix}${commands[Object.keys(commands)[i]].usage} - ${commands[Object.keys(commands)[i]].description}\n`
             }
+            if(msg.author.id === env.owner || env.admins.indexOf(msg.author.id) != -1){
             for (var i = 0; i < Object.keys(env.admin).length; i++) {
                 help += `${env.prefix}${env.admin[Object.keys(env.admin)[i]].usage} - ${env.admin[Object.keys(env.admin)[i]].description}\n`
             }
+          }
+          for (var i = 0; i < Object.keys(env.fun).length; i++) {
+              help += `${env.prefix}${env.fun[Object.keys(env.fun)[i]].usage} - ${env.fun[Object.keys(env.fun)[i]].description}\n`
+          }
             help += "\n\nFor more info on a command type " + env.prefix + "help [command name]\n```"
             msg.channel.sendMessage("Sending commands now...").then(function(message) {
                 msg.author.sendMessage(help).then(function() {
@@ -65,7 +70,10 @@ command.help = {
             if (env.admin[e]) {
                 msg.channel.sendMessage(`\`\`\`\n${env.prefix}${env.admin[e].usage}\n\n${env.admin[e].description}\`\`\``)
             }
-            if (!env.admin[e] && !env.general[e]) {
+            if(env.fun[e]) {
+              msg.channel.sendMessage(`\`\`\`\n${env.prefix}${env.fun[e].usage}\n\n${env.fun[e].description}\`\`\``)
+            }
+            if (!env.admin[e] && !env.general[e] && !env.fun[e]) {
                 msg.channel.sendMessage("Sorry I could not find command `" + e + "`")
             }
         }
