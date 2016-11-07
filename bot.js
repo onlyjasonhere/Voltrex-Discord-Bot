@@ -12,6 +12,8 @@ var prefix = process.env.BOT_PREFIX
 var prefix = "v!" //You can change this to a prefix you like but, PLEASE DON'T USE "!"
 
 }
+}
+
 
 var general = require("./commands/general.js")
 var admin = require("./commands/admin.js")
