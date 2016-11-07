@@ -26,11 +26,41 @@ command.update = {
 
 command.shutdown = {
     "name": "shutdown",
-    "usage": "shutdown <reason>",
+    "usage": "shutdown",
     "description": "Restarts bot",
     "process": function(bot, msg, env) {
-        msg.channel.sendMessage("Shutdown initiated! Bot shutting down...");
-        process.exit(1);
+		var reason = msg.content.split(" ").splice(1).join(" ");
+        msg.channel.sendMessage("Shutdown initiated! Bot shutting down...\nReason: ${reason}").then(function(t) {
+			process.exit(0)
+        })
+    }
+}
+
+command.eval = {
+    "name": "eval",
+    "usage": "eval <code>",
+    "description": "Runs code",
+    "process": function(bot, msg, env) {
+		var evalcode = msg.content.split(" ").splice(1).join(" ");
+		try {
+			var evaled = eval(evalcode);
+			if (typeof evaled !== 'string') {
+				evaled = require('util').inspect(evaled);
+			}
+			message.channel.sendMessage("```js\nOutput:\n" + clean(evaled) + "```");
+		}
+		catch (err) {
+			message.channel.sendMessage("Error: " + clean(err));
+		}
+		
+		function clean(text) {
+			if (typeof(text) === "string") {
+				return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+			}
+			else {
+				return text;
+			}
+		}
     }
 }
 
