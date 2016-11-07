@@ -47,7 +47,7 @@ command.eval = {
 			if (typeof evaled !== 'string') {
 				evaled = require('util').inspect(evaled);
 			}
-			msg.channel.sendMessage("```js\nOutput:\n" + clean(evaled) + "```");
+			msg.channel.sendMessage("Output:\n```js\n" + clean(evaled) + "```");
 		}
 		catch (err) {
 			msg.channel.sendMessage("Error: " + clean(err));
