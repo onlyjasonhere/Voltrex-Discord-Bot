@@ -151,6 +151,10 @@ bot.on("message", function(msg) {
                   toSend = toSend.replace("{del}","")
                 }
 
+
+
+
+
                 toSend = toSend.replace(/{user}/gi, msg.author.toString())
                 toSend = toSend.replace(/{id}/gi, msg.author.id)
                 toSend = toSend.replace(/{username}/gi, msg.author.username)
@@ -159,6 +163,47 @@ bot.on("message", function(msg) {
                 toSend = toSend.replace(/{serverid}/gi, msg.guild.id)
                 toSend = toSend.replace(/{channel}/gi, "<#" + msg.channel.id + ">")
                 toSend = toSend.replace(/{channelid}/gi, msg.channel.id)
+                if(toSend.indexOf('{"role":') != -1){
+                  var pos = toSend.indexOf('{"role":')
+                  var r = ""
+                  var e = toSend.split("")
+                  for(var i = pos; i < e.length;i++){
+                    if(e[i] != "}"){
+                      r += e[i]
+                    }else{
+                      break
+                    }
+                  }
+                  r = r +"}"
+                  var role = JSON.parse(r).role
+                  toSend = toSend.replace(r,"")
+                  try{
+                  msg.member.addRole(msg.guild.roles.find("name",role))
+                }catch(err){
+                  msg.channel.sendMessage("It looks like that command required me to add a role to someone, but I could not do that, this might be because the role is higher than my highest role, or I could not have the required permissions to add this user to the role specified, if you need to check anything I need to add this user to the `"+role+"` role")
+                }
+                }
+
+                if(toSend.indexOf('{"nick":') != -1){
+                  var pos = toSend.indexOf('{"nick":')
+                  var r = ""
+                  var e = toSend.split("")
+                  for(var i = pos; i < e.length;i++){
+                    if(e[i] != "}"){
+                      r += e[i]
+                    }else{
+                      break
+                    }
+                  }
+                  r = r +"}"
+                  var nick = JSON.parse(r).nick
+                  toSend = toSend.replace(r,"")
+                  try{
+                  msg.member.setNickname(nick)
+                }catch(err){
+                  msg.channel.sendMessage("Looks like I was meant to rename you on that command but I couldn't :/ Check my perms and try again")
+                }
+                }
 
 
                 msg.channel.sendMessage(toSend)
