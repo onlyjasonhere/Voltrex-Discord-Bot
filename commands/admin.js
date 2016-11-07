@@ -47,10 +47,10 @@ command.eval = {
 			if (typeof evaled !== 'string') {
 				evaled = require('util').inspect(evaled);
 			}
-			message.channel.sendMessage("```js\nOutput:\n" + clean(evaled) + "```");
+			msg.channel.sendMessage("```js\nOutput:\n" + clean(evaled) + "```");
 		}
 		catch (err) {
-			message.channel.sendMessage("Error: " + clean(err));
+			msg.channel.sendMessage("Error: " + clean(err));
 		}
 		
 		function clean(text) {
