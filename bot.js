@@ -1,20 +1,17 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var args = require("optimist").argv
+var config = require("./config.json");
 
-if(args.prefix){
-  var prefix = args.prefix
-}else{
-  if(process.env.BOT_PREFIX){
-var prefix = process.env.BOT_PREFIX
-  }else{
-
-
-var prefix = "v!" //You can change this to a prefix you like but, PLEASE DON'T USE "!"
-
+if (args.prefix) {
+    var prefix = args.prefix
+} else {
+    if (process.env.BOT_PREFIX) {
+        var prefix = process.env.BOT_PREFIX
+    } else {
+        var prefix = config.prefix //You can change this to a prefix you like but, PLEASE DON'T USE "!"
+    }
 }
-}
-
 
 var general = require("./commands/general.js")
 var admin = require("./commands/admin.js")
@@ -32,7 +29,7 @@ if (process.env.BOT_TOKEN) {
         var token = args.token
     } else {
         // If your too lazy to do any of these put your token below:
-        var token = "BOT-TOKEN"
+        var token = config.token
     }
 }
 
@@ -43,8 +40,16 @@ if (process.env.OWNER_ID) {
         var owner = args.owner
     } else {
         // Put your ID here
-        var owner = "ID"
+        var owner = config.owner
     }
+}
+
+if (args.admins) {
+    var admins = args.admins.toString().split(" ")
+    console.log("Setting admins: " + admins)
+} else {
+    console.log("No admins specified, reading from config.json")
+    var admins = config.admins
 }
 
 if (owner != "ID") {
@@ -81,15 +86,6 @@ Other possible start up flags:
 if (args.g || args.git) {
     console.log("My github link: https://github.com/Betaaaaa/Voltrex-Discord-Bot")
     process.exit(0)
-}
-
-if (args.admins) {
-
-    var admins = args.admins.toString().split(" ")
-    console.log("Setting admins: " + admins)
-} else {
-    console.log("No admins specified, just taking owner argument")
-    var admins = []
 }
 
 bot.on("error", () => {
@@ -130,12 +126,12 @@ bot.on("message", function(msg) {
 })
 
 bot.on("message", function(msg) {
-    if(!msg.guild && msg.content.indexOf(prefix+"help") != 0 && msg.author.id != bot.user.id) return msg.channel.sendMessage("Sorry but I can not function in Direct Messages, try again in a server")
+    if (!msg.guild && msg.content.indexOf(prefix + "help") != 0 && msg.author.id != bot.user.id) return msg.channel.sendMessage("Sorry but I can not function in Direct Messages, try again in a server")
     if (msg.content.startsWith(prefix)) {
-      if(!msg.guild) return msg.channel.sendMessage("Sorry but I can not function in Direct Messages, try again in a server").then(function(){
-        console.log("A user was told to fuck off from DMs and have the courage to run me from a server :^)")
-        return
-      })
+        if (!msg.guild) return msg.channel.sendMessage("Sorry but I can not function in Direct Messages, try again in a server").then(function() {
+            console.log("A user was told to fuck off from DMs and have the courage to run me from a server :^)")
+            return
+        })
         var cmd = msg.content.replace(prefix, "")
         var cmd = cmd.trim()
         if (custom[msg.guild.id]) {
@@ -169,7 +165,7 @@ bot.on("message", function(msg) {
         "owner": owner,
         "admin": admin,
         "admins": admins,
-        "fun":fun
+        "fun": fun
     }
 
     var input = msg.content.toLowerCase();

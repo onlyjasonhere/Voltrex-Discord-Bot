@@ -1,3 +1,5 @@
+config.json
+data/customcoms.json
 # Logs
 logs
 *.log
