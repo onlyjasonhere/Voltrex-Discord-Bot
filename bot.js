@@ -146,6 +146,11 @@ bot.on("message", function(msg) {
             if (custom[msg.guild.id][cmd]) {
                 var toSend = custom[msg.guild.id][cmd]
 
+                if(toSend.indexOf("{del}") != -1){
+                  msg.delete()
+                  toSend = toSend.replace("{del}","")
+                }
+
                 toSend = toSend.replace(/{user}/gi, msg.author.toString())
                 toSend = toSend.replace(/{id}/gi, msg.author.id)
                 toSend = toSend.replace(/{username}/gi, msg.author.username)
