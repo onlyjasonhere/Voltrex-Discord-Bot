@@ -113,6 +113,7 @@ bot.on("message", function(msg) {
 })
 
 bot.on("message", function(msg) {
+  if(msg.guild === undefined) return msg.channel.sendMessage("Sorry but I can not function in Direct Messages, try again in a server")
     if (msg.content.startsWith(prefix)) {
         var cmd = msg.content.replace(prefix, "")
         var cmd = cmd.trim()
@@ -137,6 +138,7 @@ bot.on("message", function(msg) {
 })
 
 bot.on("message", function(msg) {
+  if(msg.guild === undefined && msg.content.indexOf(prefix+"help") != 0) return msg.channel.sendMessage("Sorry but I can not function in Direct Messages, try again in a server")
     var env = {
         "bot": bot,
         "msg": msg,
