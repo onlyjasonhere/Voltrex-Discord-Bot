@@ -83,7 +83,7 @@ command.help = {
 command.git = {
     "name": "git",
     "usage": "git",
-    "description": "Sends a link to the bot's GitHub repo",
+    "description": "Sends a link Voltrex GitHub repo",
     "process": function(bot, msg, env) {
         msg.reply("check out my GitHub at https://github.com/Betaaaaa/v10-discord.js-discordbot !")
     }

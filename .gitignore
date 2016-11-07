@@ -33,5 +33,10 @@ jspm_packages
 # Optional npm cache directory
 .npm
 
+# Config file
+config.json
+
+
+
 # Optional REPL history
 .node_repl_history
