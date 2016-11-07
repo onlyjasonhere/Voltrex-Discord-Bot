@@ -153,7 +153,8 @@ bot.on("message", function(msg) {
 
 
 
-
+                var nick = msg.member.nickname
+                if(!nick) nick = msg.author.username
 
                 toSend = toSend.replace(/{user}/gi, msg.author.toString())
                 toSend = toSend.replace(/{id}/gi, msg.author.id)
@@ -163,6 +164,7 @@ bot.on("message", function(msg) {
                 toSend = toSend.replace(/{serverid}/gi, msg.guild.id)
                 toSend = toSend.replace(/{channel}/gi, "<#" + msg.channel.id + ">")
                 toSend = toSend.replace(/{channelid}/gi, msg.channel.id)
+                toSend = toSend.replace(/{nick}/gi,nick)
                 if(toSend.indexOf('{"role":') != -1){
                   var pos = toSend.indexOf('{"role":')
                   var r = ""
