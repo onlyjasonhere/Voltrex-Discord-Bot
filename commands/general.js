@@ -95,7 +95,7 @@ command.addcom = {
     "usage": "addcom <name> <output>",
     "description": "Add a custom command to the current server!",
     "process": function(bot, msg, env) {
-        if (msg.member.roles.find("name", "Bot Commander")) {
+        if (msg.member.roles.find("name", "Bot Commander") || msg.author.id === env.owner || env.admins.indexOf(msg.author.id) != -1) {
             var args = msg.content.split(" ").splice(1).join(" ")
             var cmd = args.split(" ")[0]
             var output = args.replace(cmd + " ", "")
@@ -125,7 +125,7 @@ command.delcom = {
     "usage": "delcom <command name>",
     "description": "Deletes custom commands from a server",
     "process": function(bot, msg, env) {
-        if (msg.member.roles.find("name", "Bot Commander")) {
+        if (msg.member.roles.find("name", "Bot Commander") || msg.author.id === env.owner || env.admins.indexOf(msg.author.id) != -1) {
             var cmd = msg.content.split(" ").splice(1).join(" ")
             if (!custom[msg.guild.id] || custom[msg.guild.id] === {}) {
                 msg.reply("This server has no custom commands :sob:")
