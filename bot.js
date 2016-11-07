@@ -124,7 +124,15 @@ bot.on("message", function(msg) {
         if (msg.content === prefix + "reload") {
             try {
                 delete require.cache[require.resolve("./commands/general.js")]
+                delete require.cache[require.resolve("./commands/fun.js")]
+                delete require.cache[require.resolve("./commands/admin.js")]
+                delete require.cache[require.resolve("./data/customcoms.json")]
+
                 general = require("./commands/general.js")
+                fun = require("./commands/fun.js")
+                admin = require("./commands/admin.js")
+                custom = require("./data/customcoms.json")
+          
                 msg.channel.sendMessage("Files reloaded!")
             } catch (err) {
                 msg.channel.sendMessage("Could not reload files, error: ```" + err.stack + "```")

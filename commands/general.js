@@ -116,7 +116,7 @@ command.addcom = {
             }
 
             custom[msg.guild.id][cmd] = output
-          
+
             fs.writeFile("./data/customcoms.json", JSON.stringify(custom), function(err) {
                 if (err) {
                     msg.reply("Could not create custom command")
@@ -170,6 +170,37 @@ command.comlist = {
         cmdtext += "```"
         msg.channel.sendMessage(cmdtext)
     }
+}
+
+command.comhelp = {
+  "name":"comhelp",
+  "usage":"comhelp",
+  "description":"Shows all keys for custom commands",
+  "process":function(bot,msg,env){
+    msg.channel.sendMessage(`\`\`\`
+Possible Keys:
+{user} - Mention
+{username} - Username
+{id} - User id
+{discrim} - Discriminator
+{server} - Server name
+{serverid} - Server id
+{channel} - Channel mention
+{channelid} - Channel id
+{nick} - Nickname (if there is one present)
+
+These can be used to change things about the user:
+
+{"role":"ROLENAME"} - Gives a user a role when they use that command
+{"nick":"NICKNAME"} - Sets a users nickname when the use that command
+
+Example:
+
+[p]addcom team1 {"nick":"TEAM 1 - {username}"} {"role":"Team 1"} Ok you have joined team 1
+
+This command would change the nickname to "TEAM 1 - username" and give them the team 1 role, then say that they have joined that team
+\`\`\``)
+  }
 }
 
 module.exports = command
