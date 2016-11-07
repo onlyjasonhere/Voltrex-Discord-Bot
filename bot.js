@@ -31,10 +31,10 @@ if (process.env.OWNER_ID) {
     }
 }
 
-if(owner != "ID"){
-  console.log("Owner set: "+owner)
-}else{
-  console.log("I have no owner, I will respond to no admin commands")
+if (owner != "ID") {
+    console.log("Owner set: " + owner)
+} else {
+    console.log("I have no owner, I will respond to no admin commands")
 }
 
 if (args.h || args.help) {
@@ -66,13 +66,13 @@ if (args.g || args.git) {
     process.exit(0)
 }
 
-if(args.admins) {
+if (args.admins) {
 
-  var admins = args.admins.toString().split(" ")
-  console.log("Setting admins: "+admins)
-}else{
-  console.log("No admins specified, just taking owner argument")
-  var admins = []
+    var admins = args.admins.toString().split(" ")
+    console.log("Setting admins: " + admins)
+} else {
+    console.log("No admins specified, just taking owner argument")
+    var admins = []
 }
 
 bot.on("error", () => {
@@ -85,16 +85,16 @@ bot.on("ready", () => {
 });
 
 bot.on('guildMemberAdd', function(member) {
-    if(member.guild.channels.find("name","v-logs")){
-        member.guild.channels.find("name","v-logs").sendMessage("```diff\n+ " + member.user.username + "\n(" + member.user.id + ")```");
-      }
+    if (member.guild.channels.find("name", "v-logs")) {
+        member.guild.channels.find("name", "v-logs").sendMessage("```diff\n+ " + member.user.username + "\n(" + member.user.id + ")```");
+    }
 });
 
 
 
 bot.on('guildMemberRemove', (member) => {
-  if(member.guild.channels.find("name","v-logs")){
-      member.guild.channels.find("name","v-logs").sendMessage("```diff\n- " + member.user.username + "\n(" + member.user.id + ")```");
+    if (member.guild.channels.find("name", "v-logs")) {
+        member.guild.channels.find("name", "v-logs").sendMessage("```diff\n- " + member.user.username + "\n(" + member.user.id + ")```");
     }
 });
 
@@ -112,28 +112,28 @@ bot.on("message", function(msg) {
     }
 })
 
-bot.on("message",function(msg){
-  if(msg.content.startsWith(prefix)){
-    var cmd = msg.content.replace(prefix,"")
-    var cmd = cmd.trim()
-    if(custom[msg.guild.id]){
-      if(custom[msg.guild.id][cmd]){
-        var toSend = custom[msg.guild.id][cmd]
-        
-        toSend = toSend.replace(/{user}/gi,msg.author.toString())
-        toSend = toSend.replace(/{id}/gi,msg.author.id)
-        toSend = toSend.replace(/{username}/gi,msg.author.username)
-        toSend = toSend.replace(/{discriminator}/gi,msg.author.discriminator)
-        toSend = toSend.replace(/{server}/gi,msg.guild.name)
-        toSend = toSend.replace(/{serverid}/gi,msg.guild.id)
-        toSend = toSend.replace(/{channel}/gi,"<#"+msg.channel.id+">")
-        toSend = toSend.replace(/{channelid}/gi,msg.channel.id)
+bot.on("message", function(msg) {
+    if (msg.content.startsWith(prefix)) {
+        var cmd = msg.content.replace(prefix, "")
+        var cmd = cmd.trim()
+        if (custom[msg.guild.id]) {
+            if (custom[msg.guild.id][cmd]) {
+                var toSend = custom[msg.guild.id][cmd]
+
+                toSend = toSend.replace(/{user}/gi, msg.author.toString())
+                toSend = toSend.replace(/{id}/gi, msg.author.id)
+                toSend = toSend.replace(/{username}/gi, msg.author.username)
+                toSend = toSend.replace(/{discriminator}/gi, msg.author.discriminator)
+                toSend = toSend.replace(/{server}/gi, msg.guild.name)
+                toSend = toSend.replace(/{serverid}/gi, msg.guild.id)
+                toSend = toSend.replace(/{channel}/gi, "<#" + msg.channel.id + ">")
+                toSend = toSend.replace(/{channelid}/gi, msg.channel.id)
 
 
-        msg.channel.sendMessage(toSend)
-      }
+                msg.channel.sendMessage(toSend)
+            }
+        }
     }
-  }
 })
 
 bot.on("message", function(msg) {
@@ -143,8 +143,8 @@ bot.on("message", function(msg) {
         "general": general,
         "process": process,
         "prefix": prefix,
-        "owner":owner,
-        "admin":admin
+        "owner": owner,
+        "admin": admin
     }
 
     var input = msg.content.toLowerCase();
@@ -164,18 +164,18 @@ bot.on("message", function(msg) {
         }
     }
 
-    if(msg.author.id === owner || admins.indexOf(msg.author.id) != -1){
-      for (var x of Object.keys(admin)) {
-          if (input.startsWith(x)) {
-              try {
-                  admin[x].process(bot, msg, env);
-              } catch (err) {
-                  msg.reply("It seems I could not process that command properely, the bot developer has been notified")
-                  console.log("Error processing " + msg.content + ", error was: " + err.stack)
-              }
-              break;
-          }
-      }
+    if (msg.author.id === owner || admins.indexOf(msg.author.id) != -1) {
+        for (var x of Object.keys(admin)) {
+            if (input.startsWith(x)) {
+                try {
+                    admin[x].process(bot, msg, env);
+                } catch (err) {
+                    msg.reply("It seems I could not process that command properely, the bot developer has been notified")
+                    console.log("Error processing " + msg.content + ", error was: " + err.stack)
+                }
+                break;
+            }
+        }
     }
 });
 
