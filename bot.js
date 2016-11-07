@@ -1,7 +1,15 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var args = require("optimist").argv
+try{
 var config = require("./config.json");
+}catch(err){
+  try{
+    var config = require("./config-example.json")
+  }catch(err){
+    console.log("No Config or example config found, oh well, we can try and start without it")
+  }
+}
 
 if (args.prefix) {
     var prefix = args.prefix
