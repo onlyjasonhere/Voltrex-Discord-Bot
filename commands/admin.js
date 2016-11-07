@@ -10,8 +10,9 @@ command.update = {
             var evaled = eval("child_process.execSync('git pull origin').toString()");
 			e.delete();
             msg.channel.sendMessage(evaled).then(function(message) {
-                if (evaled === "Already up-to-date.") {
-                    message.edit("There was nothing to update")
+                if (evaled.indexOf("Already up-to-date.") > -1) {
+                    message.edit("There was nothing to update!");
+					return;
                 } else {
 					message.channel.sendMessage("I have updated myself, but you will need to restart for it to take effect.\nShutting Down...").then(function(t) {
 						process.exit(0)
