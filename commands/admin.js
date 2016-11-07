@@ -13,7 +13,7 @@ command.update = {
                 if (evaled === "Already up-to-date.") {
                     message.edit("There was nothing to update")
                 } else {
-					message.edit("I have updated myself, but you will need to restart for it to take effect. I will now shut down.").then(function(t) {
+					message.channel.sendMessage("I have updated myself, but you will need to restart for it to take effect.\nShutting Down...").then(function(t) {
 						process.exit(0)
 					})
                 }
