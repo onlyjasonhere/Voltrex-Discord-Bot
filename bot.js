@@ -1,6 +1,14 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var args = require("optimist").argv
+
+var general = require("./commands/general.js")
+var admin = require("./commands/admin.js")
+var fun = require("./commands/fun.js")
+
+var custom = require("./data/customcoms.json")
+var fs = require("fs")
+
 try{
 var config = require("./config.json");
 }catch(err){
@@ -20,13 +28,6 @@ if (args.prefix) {
         var prefix = config.prefix //You can change this to a prefix you like but, PLEASE DON'T USE "!"
     }
 }
-
-var general = require("./commands/general.js")
-var admin = require("./commands/admin.js")
-var fun = require("./commands/fun.js")
-
-var custom = require("./data/customcoms.json")
-var fs = require("fs")
 
 if (process.env.BOT_TOKEN) {
     var token = process.env.BOT_TOKEN
