@@ -2,12 +2,9 @@ var Discord = require("discord.js");
 var bot = new Discord.Client();
 var args = require("optimist").argv
 
-var general = require("./commands/general.js")
-var admin = require("./commands/admin.js")
-var fun = require("./commands/fun.js")
-
-var custom = require("./data/customcoms.json")
 var fs = require("fs")
+
+var Commands = new Map()
 
 try {
 	var config = require("./config.json");
@@ -97,13 +94,76 @@ if (args.g || args.git) {
 	process.exit(0)
 }
 
+function loadCommands(){
+
+return new Promise(function(resolve,reject){
+
+try{
+var files = fs.readdirSync('./plugins')
+for(var file of files){
+Commands.set(file.replace(/\.js/gi,""),require("./plugins/"+file))
+}
+resolve()
+}catch(err){
+reject(err)
+}
+
+})
+
+}
+
+
+function loadCommand(name){
+	return new Promise(resolve,reject){
+		try{
+			Commands.set(name,require("./commands/"+name+".js"))
+			resolve(Commands.get(name))
+		}catch(err){
+			reject(err)
+		}
+	}
+}
+
+function unloadCommand(name){
+	return new Promise(resolve,reject){
+		try{
+			Commands.delete(name)
+			resolve()
+		}catch(err){
+			reject(err)
+		}
+	}
+}
+
+function reloadCommand(name){
+	return new Promise(resolve,reject){
+		try{
+			unloadCommand(name).then(function(){
+				delete require.cache[require.resolve('./commands/'+name+'.js')]
+				loadCommand(name).then(function(command){
+					resolve(command)
+				}).catch()
+			}).catch(function(err){
+				reject(err)
+			})
+		}catch(err){
+			reject(err)
+		}
+	}
+}
+
 bot.on("error", () => {
 	console.log(error)
 })
 
 bot.on("ready", () => {
-	console.log("Bot is online and ready on " + bot.guilds.size + " servers!");
+	loadPlugins().then(function(){
+	console.log("Bot is online and ready on " + bot.guilds.size + " servers! There are "+Commands.size+" commands loaded!");
 	bot.user.setGame(prefix + 'help | ' + bot.guilds.size + ' Servers', "https://twitch.tv/beta_rocket");
+}).catch(function(err){
+	console.log("I couldn't load something properely, did you modify me? Error: \n"+err.stack)
+	process.exit(1)
+})
 });
 
 bot.on('guildMemberAdd', function(member) {
@@ -121,167 +181,35 @@ bot.on('guildMemberRemove', (member) => {
 });
 
 bot.on("message", function(msg) {
-	if (msg.author.id === owner) {
-		if (msg.content === prefix + "reload") {
-			try {
-				delete require.cache[require.resolve("./commands/general.js")]
-				delete require.cache[require.resolve("./commands/fun.js")]
-				delete require.cache[require.resolve("./commands/admin.js")]
-				delete require.cache[require.resolve("./data/customcoms.json")]
 
-				general = require("./commands/general.js")
-				fun = require("./commands/fun.js")
-				admin = require("./commands/admin.js")
-				custom = require("./data/customcoms.json")
-
-				msg.channel.sendMessage("Files reloaded!")
-			} catch (err) {
-				msg.channel.sendMessage("Could not reload files, error: ```" + err.stack + "```")
-			}
-		}
-	}
 
 	if (!msg.guild && msg.content.indexOf(prefix + "help") != 0 && msg.author.id != bot.user.id) return msg.channel.sendMessage("Sorry but I can not function in Direct Messages, try again in a server")
 	if (msg.content.startsWith(prefix)) {
 		if (!msg.guild) return msg.channel.sendMessage("Sorry but I can not function in Direct Messages, try again in a server").then(function() {
-			console.log("A user was told to fuck off from DMs and have the courage to run me from a server :^)")
+
 			return
 		})
 		var cmd = msg.content.replace(prefix, "")
 		var cmd = cmd.trim()
-		if (custom[msg.guild.id]) {
-			if (custom[msg.guild.id][cmd]) {
-				var toSend = custom[msg.guild.id][cmd]
 
-				if (toSend.indexOf("{del}") != -1) {
-					msg.delete()
-					toSend = toSend.replace("{del}", "")
-				}
-
-
-
-				var nick = msg.member.nickname
-				if (!nick) nick = msg.author.username
-
-				toSend = toSend.replace(/{user}/gi, msg.author.toString())
-				toSend = toSend.replace(/{id}/gi, msg.author.id)
-				toSend = toSend.replace(/{username}/gi, msg.author.username)
-				toSend = toSend.replace(/{discriminator}/gi, msg.author.discriminator)
-				toSend = toSend.replace(/{server}/gi, msg.guild.name)
-				toSend = toSend.replace(/{serverid}/gi, msg.guild.id)
-				toSend = toSend.replace(/{channel}/gi, "<#" + msg.channel.id + ">")
-				toSend = toSend.replace(/{channelid}/gi, msg.channel.id)
-				toSend = toSend.replace(/{nick}/gi, nick)
-				if (toSend.indexOf('{"role":') != -1) {
-					var pos = toSend.indexOf('{"role":')
-					var r = ""
-					var e = toSend.split("")
-					for (var i = pos; i < e.length; i++) {
-						if (e[i] != "}") {
-							r += e[i]
-						} else {
-							break
-						}
-					}
-					r = r + "}"
-					var role = JSON.parse(r).role
-					toSend = toSend.replace(r, "")
-					try {
-						msg.member.addRole(msg.guild.roles.find("name", role))
-					} catch (err) {
-						msg.channel.sendMessage("It looks like that command required me to add a role to someone, but I could not do that, this might be because the role is higher than my highest role, or I could not have the required permissions to add this user to the role specified, if you need to check anything I need to add this user to the `" + role + "` role")
-					}
-				}
-
-				if (toSend.indexOf('{"nick":') != -1) {
-					var pos = toSend.indexOf('{"nick":')
-					var r = ""
-					var e = toSend.split("")
-					for (var i = pos; i < e.length; i++) {
-						if (e[i] != "}") {
-							r += e[i]
-						} else {
-							break
-						}
-					}
-					r = r + "}"
-					var nick = JSON.parse(r).nick
-					toSend = toSend.replace(r, "")
-					try {
-						msg.member.setNickname(nick)
-					} catch (err) {
-						msg.channel.sendMessage("Looks like I was meant to rename you on that command but I couldn't :/ Check my perms and try again")
-					}
-				}
-
-				if (toSend.indexOf("{pm}") === -1) {
-					msg.channel.sendMessage(toSend)
-				} else {
-					toSend = toSend.replace(/{pm}/gi, "")
-					msg.author.sendMessage(toSend)
-				}
-				return;
-			}
-		}
-	}
+if(Commands.has(cmd)){
+	var env = new Map()
+	env.set("bot",bot)
+	env.set("msg",msg)
+	env.set("Commands",Commands)
+	env.set("config",config)
+try{
+	Commands.get(cmd).run(bot,msg,env)
+}catch(err){
+	unloadCommand(name).then(function(){
+		msg.channel.sendMessage("That command failed to run, I am going to unload it")
+	}).catch(function(err){
+		msg.channel.sendMessage("That command failed to run, and I couldn't unload it either :(")
+	})
+}
+}
 
 
-
-	var env = {
-		"bot": bot,
-		"msg": msg,
-		"general": general,
-		"process": process,
-		"prefix": prefix,
-		"owner": owner,
-		"admin": admin,
-		"admins": admins,
-		"fun": fun
-	}
-
-	var input = msg.content.toLowerCase();
-	if (!input.startsWith(prefix)) return;
-	if (msg.author.bot) return;
-
-
-	var input = msg.content.toLowerCase().replace(prefix, "");
-	for (var x of Object.keys(general)) {
-		if (input.startsWith(x)) {
-			try {
-				general[x].process(bot, msg, env);
-			} catch (err) {
-				msg.reply("It seems I could not process that command properely, the bot developer has been notified")
-				console.log("Error processing " + msg.content + ", error was: " + err.stack)
-			}
-			break;
-		}
-	}
-
-	for (var x of Object.keys(fun)) {
-		if (input.startsWith(x)) {
-			try {
-				fun[x].process(bot, msg, env);
-			} catch (err) {
-				msg.reply("It seems I could not process that command properely, the bot developer has been notified")
-				console.log("Error processing " + msg.content + ", error was: " + err.stack)
-			}
-			break;
-		}
-	}
-
-	if (msg.author.id === owner || admins.indexOf(msg.author.id) != -1) {
-		for (var x of Object.keys(admin)) {
-			if (input.startsWith(x)) {
-				try {
-					admin[x].process(bot, msg, env);
-				} catch (err) {
-					msg.reply("It seems I could not process that command properely, the bot developer has been notified")
-					console.log("Error processing " + msg.content + ", error was: " + err.stack)
-				}
-				break;
-			}
-		}
-	}
 });
 
 bot.login(token);
